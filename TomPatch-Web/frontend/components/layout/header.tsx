@@ -2,11 +2,22 @@ import Link from "next/link";
 import Button from "../ui/Button";
 import MobileMenu from "./mobileMenu";
 
+const LogoIcon = () => (
+  <svg className="w-8 h-8 mr-2" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2L2 7l10 5 10-5-10-5zm0 7L2 14l10 5 10-5-10-5z" />
+  </svg>
+);
+
 export default function Header() {
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-[#171420] text-[#f6f6f6]">
       {/* Logo */}
-      <div className="font-bold text-2xl text-[#69686D]">TomFlash</div>
+      <div className="font-bold text-2xl text-[#69686D] flex flex-row">
+        <div className="hidden md:flex">
+          <LogoIcon />
+        </div>
+        TomFlash
+      </div>
 
       {/* Desktop nav */}
       <ul className="hidden md:flex gap-10 text-xl">
