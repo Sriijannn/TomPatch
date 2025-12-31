@@ -11,6 +11,53 @@ const LogoIcon = () => (
 export default function Header() {
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-[#171420] text-[#f6f6f6]">
+      <style>{`
+        @keyframes underlineExpand {
+          from {
+            width: 0;
+            left: 0;
+          }
+          to {
+            width: 100%;
+            left: 0;
+          }
+        }
+
+        @keyframes underlineCollapse {
+          from {
+            width: 100%;
+            left: 0;
+          }
+          to {
+            width: 0;
+            left: 100%;
+          }
+        }
+
+        .nav-link {
+          position: relative;
+          transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background-color: #6D57FF;
+        }
+
+        .nav-link:hover::after {
+          animation: underlineExpand 0.4s ease forwards;
+        }
+
+        .nav-link:not(:hover)::after {
+          animation: underlineCollapse 0.4s ease forwards;
+        }
+      `}</style>
+
       {/* Logo */}
       <div className="font-bold text-2xl text-[#69686D] flex flex-row">
         <div className="hidden md:flex">
@@ -22,16 +69,24 @@ export default function Header() {
       {/* Desktop nav */}
       <ul className="hidden md:flex gap-10 text-xl">
         <li>
-          <Link href="#">Features</Link>
+          <Link href="#" className="nav-link">
+            Features
+          </Link>
         </li>
         <li>
-          <Link href="#">Pricing</Link>
+          <Link href="#" className="nav-link">
+            Pricing
+          </Link>
         </li>
         <li>
-          <Link href="#">Docs</Link>
+          <Link href="#" className="nav-link">
+            Docs
+          </Link>
         </li>
         <li>
-          <Link href="#">About</Link>
+          <Link href="#" className="nav-link">
+            About
+          </Link>
         </li>
       </ul>
 
