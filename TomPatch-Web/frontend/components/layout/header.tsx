@@ -84,7 +84,7 @@ export default function Header() {
           </Link>
         </li>
         <li>
-          <Link href="#" className="nav-link">
+          <Link href="/" className="nav-link">
             About
           </Link>
         </li>
@@ -93,7 +93,7 @@ export default function Header() {
       {/* Right */}
       <div className="flex items-center gap-4">
         <Link
-          href="/login"
+          href="/sigin"
           className="hidden md:block text-lg font-medium hover:opacity-70"
         >
           Log in
@@ -102,7 +102,7 @@ export default function Header() {
         <Button
           color="#6D57FF"
           label="Get Started"
-          redirect="/login"
+          redirect="/signup"
           fontStyle={500}
         />
 
