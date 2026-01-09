@@ -5,3 +5,128 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Role {
+  OWNER // Owner is someone who has created a Team on TomFlash. Owner has complete access.
+  ADMIN // Admins are assigned by Owner, they manage fleets, members and billings.
+  DEV // Devs are assigned by Owner or Admins, they are responsible to Push Updates.
+  VIEWER // Only Viewing rights
+}
+
+
+enum SecurityTier {
+  Standard // Includes Centralized Server Architecture
+  Advanced // Includes Decentralised Server Architecture
+}
+
+
+enum UpdateStatus {
+  DRAFT             // Uploaded but not yet visible to anyone
+  PENDING_APPROVAL  // Waiting for Admin review (DB flag or Multi-Sig)
+  STAGING           // visible ONLY to devices with isTestDevice=true
+  LIVE              // Visible to ALL devices
+  REVOKED           // Emergency kill-switch
+  ARCHIVED          // Old version
+}
+
+
+model User {
+  id            String      @id
+  email         String      @unique
+  name          String
+  avatar        String?
+  memberships   Member[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Organisation {
+  id         String      @id @default(uuid())
+  name       String      
+  slug       String      @unique
+  members    Member[]
+  fleet      Fleet[]
+  createdAt   DateTime   @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Member {
+  id        String   @id @default(uuid())
+  role      Role     @default(DEV)
+  
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  orgId     String
+  org       Organisation @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, orgId])
+}
+
+model Fleet {
+  id          String       @id @default(uuid())
+  name        String
+  description String?
+  
+  tier        SecurityTier @default(Standard)
+  
+  
+  apiKey      String       @unique @default(uuid())
+  
+  
+  contractAddress String?
+  chainId         Int?
+  
+  orgId       String
+  org         Organisation @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  
+  devices     Device[]
+  updates     Update[]
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Device {
+  id             String   @id @default(uuid())
+  name           String?  
+  
+  
+  hwId           String   //id for tracking device
+  
+
+  isBlocked      Boolean  @default(false) 
+  isTestDevice   Boolean  @default(false) 
+  
+
+  lastSeen       DateTime @default(now())
+  currentVersion String   @default("0.0.0")
+  ipAddress      String?
+  
+  fleetId        String
+  fleet          Fleet    @relation(fields: [fleetId], references: [id], onDelete: Cascade)
+
+  @@unique([fleetId, hwId]) 
+  createdAt      DateTime @default(now())
+}
+
+
+
+model Update {
+  id          String       @id @default(uuid())
+  version     String      
+  status      UpdateStatus @default(DRAFT)
+  binaryUrl   String       
+  binaryHash  String       
+  fileSize    Int?         
+  releaseNotes String?     @db.Text
+  proposalId  Int?         // ID in the Smart Contract
+  signature   String?      // The Admin's signature
+  txHash      String?      // Transaction Hash of the approval
+  fleetId     String
+  fleet       Fleet        @relation(fields: [fleetId], references: [id], onDelete: Cascade)
+
+  @@unique([fleetId, version]) 
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
