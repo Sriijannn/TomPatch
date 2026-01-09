@@ -93,7 +93,7 @@ export default function Header() {
       {/* Right */}
       <div className="flex items-center gap-4">
         <Link
-          href="/sigin"
+          href="/signin"
           className="hidden md:block text-lg font-medium hover:opacity-70"
         >
           Log in
