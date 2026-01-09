@@ -93,7 +93,7 @@ export default function Header() {
       {/* Right */}
       <div className="flex items-center gap-4">
         <Link
-          href="/signin"
+          href="/auth/signin"
           className="hidden md:block text-lg font-medium hover:opacity-70"
         >
           Log in
@@ -102,7 +102,7 @@ export default function Header() {
         <Button
           color="#6D57FF"
           label="Get Started"
-          redirect="/signup"
+          redirect="/auth/signup"
           fontStyle={500}
         />
 
