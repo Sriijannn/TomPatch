@@ -29,7 +29,6 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  // IMPORTANT: You *must* run this to refresh the auth token
   await supabase.auth.getUser();
 
   return supabaseResponse;

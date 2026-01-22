@@ -47,6 +47,7 @@ model Organisation {
   slug       String      @unique
   members    Member[]
   fleet      Fleet[]
+  orgCode    String     @unique
   createdAt   DateTime   @default(now())
   updatedAt  DateTime  @updatedAt
 }
@@ -60,6 +61,10 @@ model Member {
   
   orgId     String
   org       Organisation @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  assignedFleets    Fleet[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, orgId])
 }
@@ -83,6 +88,8 @@ model Fleet {
   
   devices     Device[]
   updates     Update[]
+
+  assignedMembers   Member[]
 
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
