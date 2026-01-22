@@ -107,7 +107,7 @@ export default function SignupForm() {
 
         <button
           type="submit"
-          className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
+          className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg text-md font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
         >
           Sign Up
         </button>
