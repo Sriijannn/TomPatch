@@ -6,11 +6,12 @@ export default async function DashboardLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { orgSlug: string };
+  params: Promise<{ orgSlug: string }>;
 }) {
   // 1. Security Check & Data Fetching (Server-Side)
   // This runs before the page loads. If it fails, they get redirected.
-  const member = await getCurrentMember(params.orgSlug);
+  const { orgSlug } = await params;
+  const member = await getCurrentMember(orgSlug);
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">

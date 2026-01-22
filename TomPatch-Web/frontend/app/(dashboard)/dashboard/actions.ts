@@ -47,7 +47,7 @@ export async function createOrganization(prevState: any, formData: FormData) {
   const validation = createOrgSchema.safeParse({ name });
 
   if (!validation.success) {
-    return { message: validation.error.errors[0].message };
+    return { message: validation.error.issues[0].message };
   }
 
   const slug = generateSlug(name);
@@ -166,7 +166,7 @@ export async function createFleet(orgSlug: string, formData: FormData) {
   const validation = createFleetSchema.safeParse({ name });
 
   if (!validation.success) {
-    return { message: validation.error.errors[0].message };
+    return { message: validation.error.issues[0].message };
   }
 
   try {
