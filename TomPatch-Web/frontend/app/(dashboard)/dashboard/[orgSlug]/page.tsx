@@ -18,7 +18,6 @@ export default async function DashboardPage({
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* 1. The List of Existing Fleets */}
         {fleets.map((fleet) => (
           <Link
             key={fleet.id}
@@ -49,7 +48,6 @@ export default async function DashboardPage({
           </Link>
         ))}
 
-        {/* 2. The Create Button/Form */}
         <CreateFleetForm orgSlug={params.orgSlug} />
       </div>
     </div>
