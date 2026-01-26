@@ -31,7 +31,7 @@ function generateSlug(name: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-export async function createOrganization(formData: FormData) {
+export async function createOrganization(prevState: any, formData: FormData) {
   const supabase = await createClient();
   const {
     data: { user },
