@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Plus, ArrowRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { ChevronRight, Users, Boxes } from "lucide-react";
+import OrgAddButton from "@/components/dashboard/org-add-button";
 
 export default async function DashboardLobby() {
   const supabase = await createClient();
@@ -42,19 +43,7 @@ export default async function DashboardLobby() {
           </div>
 
           <div className="flex gap-4">
-            <Button
-              color="#FF9900"
-              label="Join Team"
-              redirect="/onboarding"
-              fontStyle={500}
-            />
-
-            <Button
-              color="#6D57FF"
-              label="Create New"
-              redirect="/onboarding"
-              fontStyle={500}
-            />
+            <OrgAddButton />
           </div>
         </div>
 
